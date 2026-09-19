@@ -90,16 +90,3 @@ plt.title("Actual vs Predicted y")
 plt.legend()
 
 
-# Area vs Price
-plt.scatter(X[:, 0], y)
-plt.xlabel("Area")
-plt.ylabel("Price")
-plt.title("Area vs Price")
-plt.show()
-
-# Bedrooms vs Price
-plt.scatter(X[:, 1], y)
-plt.xlabel("Bedrooms")
-plt.ylabel("Price")
-plt.title("Bedrooms vs Price")
-plt.show()
