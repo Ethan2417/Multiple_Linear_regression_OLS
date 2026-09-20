@@ -34,9 +34,8 @@ beta = XTX_inv @ XTy
 
 
 # 4. Display coefficients
-print("Coefficcients:")
-print(beta)
-
+print("Intercept:", beta[0])
+print("Coefficients:", beta[1:])
 
 #5.Predictions
 
@@ -78,15 +77,46 @@ adjusted_R_squared = 1 - (1 - R_squared) * (n - 1) / (n - p - 1)
 
 print("Adjusted R-squared:", adjusted_R_squared)
 
-plt.scatter(y, y_pred, color='blue', label='Data points')
+# 3D visualization
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection="3d")
 
-plt.plot([min(y), max(y)], [min(y), max(y)], color='red', label='Perfect Prediction Line')
+# Actual data points
+ax.scatter(
+    X[:, 0],
+    X[:, 1],
+    y,
+    color="blue",
+    label="Actual values"
+)
+
+# Create grid for regression plane
+x1_range = np.linspace(X[:, 0].min(), X[:, 0].max(), 20)
+x2_range = np.linspace(X[:, 1].min(), X[:, 1].max(), 20)
+
+X1, X2 = np.meshgrid(x1_range, x2_range)
+
+# Calculate predicted y for every point on the grid
+Y_pred = (
+    beta[0]
+    + beta[1] * X1
+    + beta[2] * X2
+)
+
+# Plot regression plane
+ax.plot_surface(
+    X1,
+    X2,
+    Y_pred,
+    alpha=0.5
+)
+
+ax.set_xlabel("House Size")
+ax.set_ylabel("Bedrooms")
+ax.set_zlabel("Price")
+
+ax.set_title("Multiple Linear Regression - 3D")
+
 plt.show()
-
-
-plt.xlabel("Actual y")
-plt.ylabel("Predicted y")
-plt.title("Actual vs Predicted y")
-plt.legend()
 
 
